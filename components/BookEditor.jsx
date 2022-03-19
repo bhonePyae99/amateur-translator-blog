@@ -10,10 +10,6 @@ const BookEditor = ({ initialValues, setEdit }) => {
   );
   const addBookToDatabase = async (e) => {
     e.preventDefault();
-    const bookObject = {
-      title: e.target.title.value,
-      img: e.target.image.value,
-    };
     const collectionRef = collection(db, "WebNovels");
     if (initialValues) {
       await setDoc(doc(collectionRef, initialValues.id), {
@@ -21,15 +17,17 @@ const BookEditor = ({ initialValues, setEdit }) => {
         img: e.target.image.value,
         synposis: e.target.synposis.value,
       });
+      fetch(`/api/revalidate?id=${initialValues.id}&route=book`);
+      window.location.pathname = `/${initialValues.id}`;
     } else {
       await addDoc(collectionRef, {
         title: e.target.title.value,
         img: e.target.image.value,
         synposis: e.target.synposis.value,
       });
+      fetch("/api/revalidate?route=home");
+      window.location.pathname = "/";
     }
-    fetch("/api/revalidateHomepage");
-    window.location.pathname = "/";
   };
   return (
     <div className="w-5/6 mx-auto pt-10">

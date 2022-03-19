@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+p {
+  white-space: pre-wrap;
+}
+
 body {
   font-family: "Roboto", sans-serif;
 }

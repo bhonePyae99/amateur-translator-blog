@@ -1,66 +1,50 @@
-import { query, getDocs, collection, orderBy } from "firebase/firestore";
+import {
+  query,
+  getDocs,
+  getDoc,
+  collection,
+  orderBy,
+  doc,
+} from "firebase/firestore";
+import Chapters from "../../../components/Chapters";
 import { db } from "../../../firebase-config";
-import { useState, useEffect } from "react";
-import AddNewChapter from "../../../components/AddNewChapter";
 
-export async function getServerSideProps(context) {
+export async function getStaticPaths() {
+  const resp = await getDocs(collection(db, "WebNovels"));
+  const data = resp.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
+  const paths = data.map((item) => ({
+    params: { id: item.id },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context) {
   const resp = await getDocs(
     query(
       collection(db, "WebNovels", context.params.id, "chapters"),
       orderBy("chapter")
     )
   );
+
+  const bookResp = await getDoc(doc(db, "WebNovels", context.params.id));
+
   const data = resp.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   return {
-    props: { data, novelId: context.params.id },
+    props: {
+      data,
+      novelId: context.params.id,
+      bookTitle: bookResp.data().title,
+    },
   };
 }
 
-const chapters = ({ data, novelId }) => {
-  const [currentChapter, setCurrentChapter] = useState(0);
-  useEffect(() => {
-    if (data.length === 0) setCurrentChapter("1");
-    else {
-      let chap = data[data.length - 1].chapter;
-      chap = parseInt(chap) + 1;
-      setCurrentChapter(chap.toString());
-    }
-  }, [data]);
-  const [addChapter, setAddChapter] = useState(false);
-  return (
-    <div className="w-5/6 mx-auto pt-10">
-      <button
-        className="px-2 py-1 rounded border-4 shadow float-right mb-5"
-        onClick={() => {
-          setAddChapter(true);
-        }}
-      >
-        Add a Chapter
-      </button>
-      <ul className="list-none mt-5 h-full">
-        {data.map((item) => (
-          <li className="p-2 border-l-2 border-l-white cursor-pointer shadow hover:border-l-blue-500">
-            {item.title}
-          </li>
-        ))}
-      </ul>
-
-      {addChapter && (
-        <div
-          className="absolute top-0 left-0 w-full h-screen backdrop-blur-sm"
-          style={{
-            backgroundColor: "rgba(0,0,0,0.9)",
-          }}
-        >
-          <AddNewChapter
-            setAddChapter={setAddChapter}
-            novelId={novelId}
-            currentChapter={currentChapter}
-          />
-        </div>
-      )}
-    </div>
-  );
+const chapters = ({ data, novelId, bookTitle }) => {
+  return <Chapters data={data} novelId={novelId} bookTitle={bookTitle} />;
 };
 
 export default chapters;

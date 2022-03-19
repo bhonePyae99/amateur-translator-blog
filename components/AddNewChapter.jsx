@@ -7,6 +7,7 @@ const AddNewChapter = ({
   setAddChapter,
   novelId,
   currentChapter,
+  bookTitle,
 }) => {
   const [title, setTitle] = useState(initialValues ? initialValues.title : "");
   const [content, setContent] = useState(
@@ -20,7 +21,7 @@ const AddNewChapter = ({
     if (currentChapter) {
       setChapter(currentChapter);
     }
-  }, []);
+  }, [currentChapter]);
 
   const addChapterToDatabase = async (e) => {
     e.preventDefault();
@@ -29,7 +30,9 @@ const AddNewChapter = ({
       title: e.target.title.value,
       content: e.target.content.value,
       chapter: e.target.chapter.value,
+      bookTitle: bookTitle,
     });
+    fetch(`/api/revalidate?id=${novelId}&route=chapters`);
     window.location.pathname = `/${novelId}/chapters`;
 
     setAddChapter(false);
