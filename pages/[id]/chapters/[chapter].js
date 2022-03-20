@@ -1,3 +1,10 @@
+import {
+  faAnglesRight,
+  faAnglesLeft,
+  faList,
+} from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase-config";
 
@@ -39,7 +46,9 @@ export async function getStaticProps(context) {
   }
 
   return {
-    props: { data: { ...resp.data(), chapter: resp.id } },
+    props: {
+      data: { ...resp.data(), chapter: resp.id, bookId: context.params.id },
+    },
   };
 }
 
@@ -51,6 +60,37 @@ const chapter = ({ data }) => {
           <h2 className="font-bold text-3xl">{data.bookTitle}</h2>
           <h2 className="text-2xl font-bold mt-1">{data.title}</h2>
           <p className="leading-loose mt-5">{data.content}</p>
+
+          <div className="flex md:w-1/2 w-5/6 mt-10 mx-auto justify-between">
+            {data.chapter !== "1" && (
+              <Link
+                href={`/${data.bookId}/chapters/${(
+                  parseInt(data.chapter) - 1
+                ).toString()}`}
+                passHref
+              >
+                <button className="px-2 py-1 rounded shadow bg-green-500 text-white">
+                  <FontAwesomeIcon icon={faAnglesLeft} className="mr-2" />
+                  Back
+                </button>
+              </Link>
+            )}
+            <button className="px-2 py-1 rounded shadow bg-green-500 text-white">
+              Chapters
+              <FontAwesomeIcon icon={faList} className="ml-2" />
+            </button>
+            <Link
+              href={`/${data.bookId}/chapters/${(
+                parseInt(data.chapter) + 1
+              ).toString()}`}
+              passHref
+            >
+              <button className="px-2 py-1 rounded shadow bg-green-500 text-white">
+                Next
+                <FontAwesomeIcon icon={faAnglesRight} className="ml-2" />
+              </button>
+            </Link>
+          </div>
         </div>
       )}
     </>
