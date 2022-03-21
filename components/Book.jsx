@@ -33,12 +33,14 @@ const Book = ({ data }) => {
             <FontAwesomeIcon icon={faArrowLeftLong} className="mr-1" />
             Back
           </button>
-          <div className="grid grid-cols-3">
+          <div className="grid md:grid-cols-3 grid-cols-1">
             <div className="col-span-1">
-              <img src={data.img} className="w-3/4" alt="" />
+              <img src={data.img} className="md:w-3/4 w-full" alt="" />
             </div>
             <div className="col-span-2">
-              <h1 className="text-3xl font-bold mb-10">{data.title}</h1>
+              <h1 className="text-3xl font-bold mb-10 md:mt-0 mt-10">
+                {data.title}
+              </h1>
               <div className="flex justify-between">
                 <h2 className="text-2xl font-bold">Description</h2>
                 <div>

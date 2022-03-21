@@ -20,8 +20,8 @@ export default function Home({ data }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="w-5/6 mx-auto pt-10">
-        <div className="grid grid-cols-4 gap-y-10">
+      <main className="md:w-5/6 mx-auto pt-10">
+        <div className="grid md:grid-cols-4 grid-cols-1 gap-y-10">
           {data.map((item) => (
             <Link href={`/${item.id}`} passHref key={item.id}>
               <div className="col-span-1 flex justify-center cursor-pointer">

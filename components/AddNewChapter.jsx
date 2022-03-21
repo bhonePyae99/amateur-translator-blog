@@ -32,6 +32,14 @@ const AddNewChapter = ({
       chapter: e.target.chapter.value,
       bookTitle: bookTitle,
     });
+    await setDoc(
+      doc(collectionRef, novelId),
+      {
+        chapCount: parseInt(e.target.chapter.value),
+      },
+      { merge: true }
+    );
+
     fetch(`/api/revalidate?id=${novelId}&route=chapters`);
     window.location.pathname = `/${novelId}/chapters`;
 
@@ -40,7 +48,7 @@ const AddNewChapter = ({
   return (
     <div className="w-5/6 mx-auto pt-10">
       <form
-        className="w-1/2 mx-auto p-5 bg-white rounded shadow"
+        className="md:w-1/2 w-full mx-auto p-5 bg-white rounded shadow"
         onSubmit={addChapterToDatabase}
       >
         <label htmlFor="chapter" className="block mb-2">
@@ -51,9 +59,7 @@ const AddNewChapter = ({
           name="chapter"
           id="chapter"
           value={chapter}
-          onChange={(e) => {
-            setChapter(e.target.value);
-          }}
+          readOnly
           className="outline-none mb-4 border-2 px-1 py-2 w-full rounded focus:border-blue-500"
           placeholder="Chapter number..."
         />

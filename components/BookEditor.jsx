@@ -32,7 +32,7 @@ const BookEditor = ({ initialValues, setEdit }) => {
   return (
     <div className="w-5/6 mx-auto pt-10">
       <form
-        className="w-1/2 mx-auto p-5 bg-white rounded shadow"
+        className="md:w-1/2 w-full mx-auto p-5 bg-white rounded shadow"
         onSubmit={addBookToDatabase}
       >
         <label htmlFor="title" className="block mb-2">
