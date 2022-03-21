@@ -70,7 +70,7 @@ const chapter = ({ data }) => {
           <h2 className="text-2xl font-bold mt-1">{data.title}</h2>
           <p className="leading-loose mt-5">{data.content}</p>
 
-          <div className="flex md:w-1/2 w-5/6 mt-10 mx-auto justify-between">
+          <div className="flex md:w-1/2 w-full mt-10 mx-auto justify-between">
             {data.chapter !== "1" && (
               <Link
                 href={`/${data.bookId}/chapters/${(
