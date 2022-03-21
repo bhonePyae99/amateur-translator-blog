@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
 
@@ -44,7 +44,11 @@ export async function getStaticProps(context) {
 }
 
 const chapters = ({ data, novelId, bookTitle }) => {
-  return <Chapters data={data} novelId={novelId} bookTitle={bookTitle} />;
+  return (
+    <>
+      {data && <Chapters data={data} novelId={novelId} bookTitle={bookTitle} />}
+    </>
+  );
 };
 
 export default chapters;
