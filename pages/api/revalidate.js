@@ -7,7 +7,6 @@ export default async function handler(req, res) {
   } else if (req.query.route === "chapters") {
     revalidateRoute = `/${req.query.id}/chapters`;
   }
-  console.log(revalidateRoute);
   let revalidated = false;
   try {
     await res.unstable_revalidate(revalidateRoute);

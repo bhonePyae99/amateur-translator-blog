@@ -6,25 +6,25 @@ import AddNewChapter from "./AddNewChapter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
-const Chapters = ({ data, novelId, bookTitle, chapCount }) => {
+const Chapters = ({ novelId, bookTitle, chapCount }) => {
   const router = useRouter();
   const chapters = _.range(1, chapCount + 1);
   const [currentChapter, setCurrentChapter] = useState(0);
   useEffect(() => {
-    if (data.length === 0) setCurrentChapter("1");
+    if (chapCount === 0) setCurrentChapter("1");
     else {
-      let chap = data[data.length - 1].chapter;
-      chap = parseInt(chap) + 1;
+      let chap = chapCount;
+      chap = chap + 1;
       setCurrentChapter(chap.toString());
     }
-  }, [data]);
+  }, [chapCount]);
   const [addChapter, setAddChapter] = useState(false);
   return (
     <div className="w-5/6 mx-auto pt-10">
       <button
         className="px-2 py-1 rounded border-4 shadow float-left"
         onClick={() => {
-          router.back();
+          router.push(`/${novelId}`);
         }}
       >
         <FontAwesomeIcon icon={faArrowLeftLong} className="mr-1" />

@@ -12,11 +12,15 @@ const BookEditor = ({ initialValues, setEdit }) => {
     e.preventDefault();
     const collectionRef = collection(db, "WebNovels");
     if (initialValues) {
-      await setDoc(doc(collectionRef, initialValues.id), {
-        title: e.target.title.value,
-        img: e.target.image.value,
-        synposis: e.target.synposis.value,
-      });
+      await setDoc(
+        doc(collectionRef, initialValues.id),
+        {
+          title: e.target.title.value,
+          img: e.target.image.value,
+          synposis: e.target.synposis.value,
+        },
+        { merge: true }
+      );
       fetch(`/api/revalidate?id=${initialValues.id}&route=book`);
       window.location.pathname = `/${initialValues.id}`;
     } else {
@@ -24,6 +28,7 @@ const BookEditor = ({ initialValues, setEdit }) => {
         title: e.target.title.value,
         img: e.target.image.value,
         synposis: e.target.synposis.value,
+        chapCount: 0,
       });
       fetch("/api/revalidate?route=home");
       window.location.pathname = "/";
