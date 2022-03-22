@@ -23,7 +23,7 @@ const Book = ({ data }) => {
   return (
     <>
       {data && (
-        <div className="w-5/6 mx-auto pt-10">
+        <div className="w-5/6 mx-auto py-10">
           <button
             className="shadow border-2 py-1 px-2 mb-5"
             onClick={() => {

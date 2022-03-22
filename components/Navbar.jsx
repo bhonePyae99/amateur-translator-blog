@@ -32,7 +32,7 @@ const Navbar = () => {
           </li>
         </ul>
         {/* Mobile menu */}
-        <div className="hidden md:hidden">
+        <div className="block md:hidden">
           <FontAwesomeIcon icon={faBars} className="text-2xl" />
         </div>
       </div>

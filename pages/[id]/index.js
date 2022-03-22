@@ -1,6 +1,6 @@
 import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import Book from "../../components/Book";
-
+import Head from "next/head";
 import { db } from "../../firebase-config";
 
 export async function getStaticPaths() {
@@ -31,7 +31,18 @@ export async function getStaticProps(context) {
 }
 
 const book = ({ data }) => {
-  return <Book data={data} />;
+  return (
+    <>
+      {data && (
+        <Head>
+          <title>{data.title}</title>
+          <meta name="description" content={data.title} />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+      )}
+      <Book data={data} />
+    </>
+  );
 };
 
 export default book;

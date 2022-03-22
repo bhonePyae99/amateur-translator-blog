@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
+import _ from "lodash";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import AddNewChapter from "./AddNewChapter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
-const Chapters = ({ data, novelId, bookTitle }) => {
+const Chapters = ({ data, novelId, bookTitle, chapCount }) => {
   const router = useRouter();
+  const chapters = _.range(1, chapCount + 1);
   const [currentChapter, setCurrentChapter] = useState(0);
   useEffect(() => {
     if (data.length === 0) setCurrentChapter("1");
@@ -37,10 +39,21 @@ const Chapters = ({ data, novelId, bookTitle }) => {
         Add a Chapter
       </button>
       <ul className="list-none mt-20 h-full">
-        {data.map((item) => (
+        {/* {data.map((item) => (
           <Link href={`/${novelId}/chapters/${item.id}`} passHref key={item.id}>
             <li className="p-2 border-l-2 border-l-white cursor-pointer shadow hover:border-l-blue-500">
               {item.title}
+            </li>
+          </Link>
+        ))} */}
+        {chapters.map((item) => (
+          <Link
+            href={`/${novelId}/chapters/${item.toString()}`}
+            passHref
+            key={item}
+          >
+            <li className="p-2 border-l-2 border-l-white cursor-pointer shadow hover:border-l-blue-500">
+              {item}
             </li>
           </Link>
         ))}
