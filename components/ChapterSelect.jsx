@@ -11,7 +11,7 @@ const ChapterSelect = ({ items, setDisplayChapters }) => {
     const test = _.chunk(items, 50);
     setChaps(test);
     setCurrentSelect(test[0]);
-  }, []);
+  }, [items]);
 
   const test = [...currentSelect];
 
@@ -42,6 +42,7 @@ const ChapterSelect = ({ items, setDisplayChapters }) => {
                   setDisplayChapters(item);
                   setShowDropdown(false);
                 }}
+                key={item[0]}
               >
                 Chapters {item[0]} - {item[item.length - 1]}
               </li>

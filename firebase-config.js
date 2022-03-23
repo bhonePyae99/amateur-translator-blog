@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 const firebaseConfig = {
-  apiKey: "AIzaSyCxLYKkj5-DCUaLMnGaFgOU2mkMmw_tGoY",
+  apiKey: process.env.FIREBASE_API,
   authDomain: "myapp-8391f.firebaseapp.com",
   projectId: "myapp-8391f",
   storageBucket: "myapp-8391f.appspot.com",
@@ -12,4 +12,3 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-
