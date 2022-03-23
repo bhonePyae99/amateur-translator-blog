@@ -5,10 +5,15 @@ import { useRouter } from "next/router";
 import AddNewChapter from "./AddNewChapter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import ChapterSelect from "./ChapterSelect";
 
 const Chapters = ({ novelId, bookTitle, chapCount }) => {
   const router = useRouter();
   const chapters = _.range(1, chapCount + 1);
+
+  const [displayChapters, setDisplayChapters] = useState(
+    _.chunk(chapters, 50)[0]
+  );
   const [currentChapter, setCurrentChapter] = useState(0);
   useEffect(() => {
     if (chapCount === 0) setCurrentChapter("1");
@@ -20,7 +25,7 @@ const Chapters = ({ novelId, bookTitle, chapCount }) => {
   }, [chapCount]);
   const [addChapter, setAddChapter] = useState(false);
   return (
-    <div className="w-5/6 mx-auto pt-10">
+    <div className="w-5/6 mx-auto py-10">
       <button
         className="px-2 py-1 rounded border-4 shadow float-left"
         onClick={() => {
@@ -38,7 +43,15 @@ const Chapters = ({ novelId, bookTitle, chapCount }) => {
       >
         Add a Chapter
       </button>
-      <ul className="list-none mt-20 h-full">
+
+      <div className="mt-20">
+        <ChapterSelect
+          items={chapters}
+          setDisplayChapters={setDisplayChapters}
+        />
+      </div>
+
+      <ul className="list-none mt-10">
         {/* {data.map((item) => (
           <Link href={`/${novelId}/chapters/${item.id}`} passHref key={item.id}>
             <li className="p-2 border-l-2 border-l-white cursor-pointer shadow hover:border-l-blue-500">
@@ -46,7 +59,7 @@ const Chapters = ({ novelId, bookTitle, chapCount }) => {
             </li>
           </Link>
         ))} */}
-        {chapters.map((item) => (
+        {displayChapters.map((item) => (
           <Link
             href={`/${novelId}/chapters/${item.toString()}`}
             passHref
