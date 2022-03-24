@@ -74,7 +74,7 @@ const Chapters = ({ novelId, bookTitle, chapCount }) => {
 
       {addChapter && (
         <div
-          className="absolute top-0 left-0 w-full h-screen backdrop-blur-sm"
+          className="fixed top-0 left-0 w-full h-screen backdrop-blur-sm"
           style={{
             backgroundColor: "rgba(0,0,0,0.9)",
           }}
