@@ -1,4 +1,4 @@
-import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
 
@@ -32,10 +32,14 @@ const AddNewChapter = ({
       chapter: e.target.chapter.value,
       bookTitle: bookTitle,
     });
+
+    const chapResp = await getDoc(doc(collectionRef, novelId));
+    const totalChap = chapResp.data().chapCount;
+
     await setDoc(
       doc(collectionRef, novelId),
       {
-        chapCount: parseInt(e.target.chapter.value),
+        chapCount: initialValues ? totalChap : parseInt(e.target.chapter.value),
       },
       { merge: true }
     );
