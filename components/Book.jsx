@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import BookEditor from "./BookEditor";
@@ -11,9 +11,12 @@ import {
   faTrashCan,
   faArrowRightLong,
 } from "@fortawesome/free-solid-svg-icons";
+import UserContext from "../context/UserContext";
 const Book = ({ data }) => {
   const [edit, setEdit] = useState(false);
   const router = useRouter();
+
+  const { user } = useContext(UserContext);
 
   const deleteBook = async () => {
     await deleteDoc(doc(db, "WebNovels", data.id));
@@ -38,28 +41,35 @@ const Book = ({ data }) => {
               <img src={data.img} className="md:w-3/4 w-full" alt="" />
             </div>
             <div className="col-span-2">
-              <h1 className="text-3xl font-bold mb-10 md:mt-0 mt-10">
+              <h1 className="text-3xl font-bold mb-3 md:mt-0 mt-10">
                 {data.title}
               </h1>
+              <h2 className="text-2xl font-semibold mb-3">
+                Translator - {data.authorName}
+              </h2>
               <div className="flex justify-between">
                 <h2 className="text-2xl font-bold">Description</h2>
                 <div>
-                  <button
-                    className="bg-blue-500 py-1 text-white rounded px-4"
-                    onClick={() => {
-                      setEdit(true);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faPenToSquare} className="mr-1" />
-                    Edit
-                  </button>
-                  <button
-                    className="bg-red-500 py-1 px-2 rounded text-white ml-2"
-                    onClick={deleteBook}
-                  >
-                    <FontAwesomeIcon icon={faTrashCan} className="mr-1" />
-                    Delete
-                  </button>
+                  {user && user.uid === data.authorId && (
+                    <button
+                      className="bg-blue-500 py-1 text-white rounded px-4"
+                      onClick={() => {
+                        setEdit(true);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faPenToSquare} className="mr-1" />
+                      Edit
+                    </button>
+                  )}
+                  {user && user.uid === data.authorId && (
+                    <button
+                      className="bg-red-500 py-1 px-2 rounded text-white ml-2"
+                      onClick={deleteBook}
+                    >
+                      <FontAwesomeIcon icon={faTrashCan} className="mr-1" />
+                      Delete
+                    </button>
+                  )}
                 </div>
               </div>
               <p className="mt-5 leading-relaxed text-lg">{data.synposis}</p>

@@ -1,5 +1,5 @@
 import AddNewChapter from "./AddNewChapter";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,19 +8,23 @@ import {
   faList,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import UserContext from "../context/UserContext";
 const Chapter = ({ data }) => {
   const [editChapter, setEditChapter] = useState(false);
+  const { user } = useContext(UserContext);
   return (
     <>
-      <button
-        className="py-1 rounded px-2 bg-blue-500 text-white float-right mt-10 mr-10"
-        onClick={() => {
-          setEditChapter((s) => !s);
-        }}
-      >
-        <FontAwesomeIcon icon={faPenToSquare} className="mr-1" />
-        Edit
-      </button>
+      {user && user.uid === data.authorId && (
+        <button
+          className="py-1 rounded px-2 bg-blue-500 text-white float-right mt-10 mr-10"
+          onClick={() => {
+            setEditChapter((s) => !s);
+          }}
+        >
+          <FontAwesomeIcon icon={faPenToSquare} className="mr-1" />
+          Edit
+        </button>
+      )}
       {data && (
         <div className="w-5/6 mx-auto py-10">
           <div className="w-full">

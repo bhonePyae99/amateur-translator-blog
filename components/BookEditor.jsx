@@ -1,8 +1,11 @@
 import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { db } from "../firebase-config";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
 
 const BookEditor = ({ initialValues, setEdit }) => {
+  const { user } = useContext(UserContext);
   const [title, setTitle] = useState(initialValues ? initialValues.title : "");
   const [img, setImg] = useState(initialValues ? initialValues.img : "");
   const [synposis, setSynposis] = useState(
@@ -28,6 +31,8 @@ const BookEditor = ({ initialValues, setEdit }) => {
         title: e.target.title.value,
         img: e.target.image.value,
         synposis: e.target.synposis.value,
+        authorId: user.uid,
+        authorName: user.displayName,
         chapCount: 0,
       });
       fetch("/api/revalidate?route=home");

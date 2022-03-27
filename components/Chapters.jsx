@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import _ from "lodash";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -6,10 +6,13 @@ import AddNewChapter from "./AddNewChapter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import ChapterSelect from "./ChapterSelect";
+import UserContext from "../context/UserContext";
 
-const Chapters = ({ novelId, bookTitle, chapCount }) => {
+const Chapters = ({ novelId, bookTitle, chapCount, authorId }) => {
   const router = useRouter();
   const chapters = _.range(1, chapCount + 1);
+
+  const { user } = useContext(UserContext);
 
   const [displayChapters, setDisplayChapters] = useState(
     _.chunk(chapters, 50)[0]
@@ -35,20 +38,24 @@ const Chapters = ({ novelId, bookTitle, chapCount }) => {
         <FontAwesomeIcon icon={faArrowLeftLong} className="mr-1" />
         Back
       </button>
-      <button
-        className="px-2 py-1 rounded border-4 shadow float-right mb-5"
-        onClick={() => {
-          setAddChapter(true);
-        }}
-      >
-        Add a Chapter
-      </button>
+      {user && user.uid === authorId && (
+        <button
+          className="px-2 py-1 rounded border-4 shadow float-right mb-5"
+          onClick={() => {
+            setAddChapter(true);
+          }}
+        >
+          Add a Chapter
+        </button>
+      )}
 
       <div className="mt-20">
-        <ChapterSelect
-          items={chapters}
-          setDisplayChapters={setDisplayChapters}
-        />
+        {chapCount !== 0 && (
+          <ChapterSelect
+            items={chapters}
+            setDisplayChapters={setDisplayChapters}
+          />
+        )}
       </div>
 
       <ul className="list-none mt-10">
@@ -59,17 +66,18 @@ const Chapters = ({ novelId, bookTitle, chapCount }) => {
             </li>
           </Link>
         ))} */}
-        {displayChapters.map((item) => (
-          <Link
-            href={`/${novelId}/chapters/${item.toString()}`}
-            passHref
-            key={item}
-          >
-            <li className="p-2 border-l-2 border-l-white cursor-pointer shadow hover:border-l-blue-500">
-              {item}
-            </li>
-          </Link>
-        ))}
+        {displayChapters &&
+          displayChapters.map((item) => (
+            <Link
+              href={`/${novelId}/chapters/${item.toString()}`}
+              passHref
+              key={item}
+            >
+              <li className="p-2 border-l-2 border-l-white cursor-pointer shadow hover:border-l-blue-500">
+                {item}
+              </li>
+            </Link>
+          ))}
       </ul>
 
       {addChapter && (

@@ -32,11 +32,12 @@ export async function getStaticProps(context) {
       novelId: context.params.id,
       bookTitle: bookResp.data().title,
       chapCount: bookResp.data().chapCount,
+      authorId: bookResp.data().authorId,
     },
   };
 }
 
-const chapters = ({ novelId, bookTitle, chapCount }) => {
+const chapters = ({ novelId, bookTitle, chapCount, authorId }) => {
   return (
     <>
       <Head>
@@ -45,7 +46,12 @@ const chapters = ({ novelId, bookTitle, chapCount }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Chapters novelId={novelId} bookTitle={bookTitle} chapCount={chapCount} />
+      <Chapters
+        novelId={novelId}
+        bookTitle={bookTitle}
+        chapCount={chapCount}
+        authorId={authorId}
+      />
     </>
   );
 };

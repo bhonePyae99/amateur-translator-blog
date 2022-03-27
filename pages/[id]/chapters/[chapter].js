@@ -55,6 +55,7 @@ export async function getServerSideProps(context) {
         chapter: resp.id,
         bookId: context.params.id,
         chapCount: bookResp.data().chapCount,
+        authorId: bookResp.data().authorId,
       },
     },
   };
