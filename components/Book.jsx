@@ -30,7 +30,7 @@ const Book = ({ data }) => {
           <button
             className="shadow border-2 py-1 px-2 mb-5"
             onClick={() => {
-              router.push("/");
+              router.replace("/");
             }}
           >
             <FontAwesomeIcon icon={faArrowLeftLong} className="mr-1" />

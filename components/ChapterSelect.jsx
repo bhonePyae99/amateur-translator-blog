@@ -9,18 +9,20 @@ const ChapterSelect = ({ items, setDisplayChapters }) => {
   return (
     <>
       <div>
-        <div className="py-2 inline-block border-2 border-blue-400 rounded px-4">
+        <div
+          className="py-2 inline-block border-2 border-blue-400 rounded px-4 cursor-pointer"
+          onClick={() => {
+            setShowDropdown((s) => !s);
+          }}
+        >
           Chapter {currentSelect[0]} - {currentSelect[currentSelect.length - 1]}
           <FontAwesomeIcon
             icon={!showDropdown ? faChevronDown : faChevronUp}
             className="ml-2 cursor-pointer"
-            onClick={() => {
-              setShowDropdown((s) => !s);
-            }}
           />
         </div>
         {showDropdown && (
-          <ul className="list-none border-2 min-w-[159.16px] bg-white px-2 py-2 mt-1 absolute">
+          <ul className="list-none border-2 border-blue-400 min-w-[159.16px] bg-white px-2 py-2 mt-1 absolute">
             {test.map((item) => (
               <li
                 className={

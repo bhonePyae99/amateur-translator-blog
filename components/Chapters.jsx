@@ -32,7 +32,7 @@ const Chapters = ({ novelId, bookTitle, chapCount, authorId }) => {
       <button
         className="px-2 py-1 rounded border-4 shadow float-left"
         onClick={() => {
-          router.push(`/${novelId}`);
+          router.replace(`/${novelId}`);
         }}
       >
         <FontAwesomeIcon icon={faArrowLeftLong} className="mr-1" />

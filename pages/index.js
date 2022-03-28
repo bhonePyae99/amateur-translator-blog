@@ -20,7 +20,7 @@ export default function Home({ data }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="md:w-5/6 mx-auto pt-10">
+      <main className="md:w-5/6 mx-auto py-10">
         <div className="grid md:grid-cols-4 grid-cols-1 gap-y-10">
           {data.map((item) => (
             <Link href={`/${item.id}`} passHref key={item.id}>

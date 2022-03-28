@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.0",
     "@fortawesome/react-fontawesome": "^0.1.17",
     "firebase": "^9.6.8",
+    "framer-motion": "^6.2.8",
     "joi-browser": "^13.4.0",
     "lodash": "^4.17.21",
     "next": "12.1.0",
