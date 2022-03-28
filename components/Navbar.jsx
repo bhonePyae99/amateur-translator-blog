@@ -9,10 +9,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useContext, useState } from "react";
 import UserContext from "../context/UserContext";
 
-const mobile = {
+const mobileLogin = {
   hidden: { y: -300, opacity: 0 },
   visible: {
-    y: 205,
+    y: 165,
+    opacity: 1,
+    transition: { ease: "easeOut", duration: 0.5 },
+  },
+  exit: { y: -300, transition: { ease: "easeOut", duration: 0.5 } },
+};
+
+const mobileNotLogin = {
+  hidden: { y: -300, opacity: 0 },
+  visible: {
+    y: 125,
     opacity: 1,
     transition: { ease: "easeOut", duration: 0.5 },
   },
@@ -87,7 +97,7 @@ const Navbar = () => {
         {showMobileMenu && (
           <motion.div
             className="bg-green-500 w-full z-0 absolute bottom-0 translate-y-full"
-            variants={mobile}
+            variants={user ? mobileLogin : mobileNotLogin}
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -95,15 +105,21 @@ const Navbar = () => {
             <ul className="list-none text-center">
               <li className="border-b p-2">Books</li>
               <li className="border-b p-2">Authors</li>
-              <Link href="/login" passHref>
-                <li className="border-b p-2">Login</li>
-              </Link>
-              <Link href="/addBook" passHref>
-                <li className="border-b p-2">Add Book</li>
-              </Link>
-              <Link href="/profile" passHref>
-                <li className="border-b p-2">Profile</li>
-              </Link>
+              {!user && (
+                <Link href="/login" passHref>
+                  <li className="border-b p-2">Login</li>
+                </Link>
+              )}
+              {user && (
+                <Link href="/addBook" passHref>
+                  <li className="border-b p-2">Add Book</li>
+                </Link>
+              )}
+              {user && (
+                <Link href="/profile" passHref>
+                  <li className="border-b p-2">Profile</li>
+                </Link>
+              )}
             </ul>
           </motion.div>
         )}
