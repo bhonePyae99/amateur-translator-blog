@@ -25,6 +25,7 @@ const BookEditor = ({ initialValues, setEdit }) => {
         { merge: true }
       );
       fetch(`/api/revalidate?id=${initialValues.id}&route=book`);
+      fetch("/api/revalidate?route=home");
       window.location.pathname = `/${initialValues.id}`;
     } else {
       await addDoc(collectionRef, {

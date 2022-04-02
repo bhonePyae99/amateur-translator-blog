@@ -96,27 +96,61 @@ const Navbar = () => {
       <AnimatePresence>
         {showMobileMenu && (
           <motion.div
-            className="bg-green-500 w-full z-0 absolute bottom-0 translate-y-full"
+            className="bg-green-600 w-full z-0 absolute bottom-0 translate-y-full"
             variants={user ? mobileLogin : mobileNotLogin}
             initial="hidden"
             animate="visible"
             exit="exit"
           >
             <ul className="list-none text-center">
-              <li className="border-b p-2">Books</li>
-              <li className="border-b p-2">Authors</li>
+              <li
+                className="border-b p-2"
+                onClick={() => {
+                  setShowMobileMenu(false);
+                }}
+              >
+                Books
+              </li>
+              <li
+                className="border-b p-2"
+                onClick={() => {
+                  setShowMobileMenu(false);
+                }}
+              >
+                Authors
+              </li>
               {!user && (
                 <Link href="/login" passHref>
-                  <li className="border-b p-2">Login</li>
+                  <li
+                    className="border-b p-2"
+                    onClick={() => {
+                      setShowMobileMenu(false);
+                    }}
+                  >
+                    Login
+                  </li>
                 </Link>
               )}
               {user && (
                 <Link href="/addBook" passHref>
-                  <li className="border-b p-2">Add Book</li>
+                  <li
+                    className="border-b p-2"
+                    onClick={() => {
+                      setShowMobileMenu(false);
+                    }}
+                  >
+                    Add Book
+                  </li>
                 </Link>
               )}
               {user && (
-                <Link href="/profile" passHref>
+                <Link
+                  href="/profile"
+                  passHref
+                  onClick={() => {
+                    setShowMobileMenu(false);
+                  }}
+                >
                   <li className="border-b p-2">Profile</li>
                 </Link>
               )}
