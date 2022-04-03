@@ -29,8 +29,8 @@ const Chapter = ({ data }) => {
         <div className="w-5/6 mx-auto py-10">
           <div className="w-full">
             <h2 className="font-bold text-3xl">{data.bookTitle}</h2>
-            <h2 className="text-2xl font-bold mt-1">{data.title}</h2>
-            <p className="leading-loose mt-5">{data.content}</p>
+            <h2 className="text-xl font-bold mt-1">{data.title}</h2>
+            <p className="leading-loose mt-3">{data.content}</p>
           </div>
 
           <div className="flex md:w-1/2 w-full mt-10 mx-auto justify-between">

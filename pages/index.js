@@ -30,6 +30,9 @@ export default function Home({ data }) {
                   <h2 className="mx-5 my-2 text-ellipsis overflow-hidden whitespace-nowrap">
                     {item.title}
                   </h2>
+                  <h2 className="mx-5 my-2 text-md font-bold text-green-700 text-ellipsis overflow-hidden whitespace-nowrap">
+                    {item.authorName}
+                  </h2>
                 </div>
               </div>
             </Link>

@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
   return (
     <UserContext.Provider value={{ user }}>
       <Navbar />
-      {children}
+      <main className="bg-slate-50 min-h-screen">{children}</main>
     </UserContext.Provider>
   );
 };

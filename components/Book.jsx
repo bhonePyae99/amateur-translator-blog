@@ -38,7 +38,11 @@ const Book = ({ data }) => {
           </button>
           <div className="grid md:grid-cols-3 grid-cols-1">
             <div className="col-span-1">
-              <img src={data.img} className="md:w-3/4 w-full" alt="" />
+              <img
+                src={data.img}
+                className="md:w-3/4 w-full border-green-500 border-2 shadow rounded-lg"
+                alt=""
+              />
             </div>
             <div className="col-span-2">
               <h1 className="text-3xl font-bold mb-3 md:mt-0 mt-10">

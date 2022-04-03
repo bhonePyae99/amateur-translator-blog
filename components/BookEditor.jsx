@@ -11,9 +11,14 @@ const BookEditor = ({ initialValues, setEdit }) => {
   const [synposis, setSynposis] = useState(
     initialValues ? initialValues.synposis || "" : ""
   );
+
+  //adding book to the firestore database
+
   const addBookToDatabase = async (e) => {
     e.preventDefault();
     const collectionRef = collection(db, "WebNovels");
+
+    //checking if adding new book or editing existing book
     if (initialValues) {
       await setDoc(
         doc(collectionRef, initialValues.id),

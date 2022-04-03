@@ -34,8 +34,8 @@ const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   return (
-    <nav className="border-b-2 bg-green-500 text-white relative w-full z-30">
-      <div className="w-5/6 mx-auto py-4 flex justify-between items-center z-30">
+    <nav className="border-b-2 bg-green-500 text-white relative w-full">
+      <div className="w-5/6 mx-auto py-4 flex justify-between items-center">
         <h1 className="md:text-3xl text-xl font-bold cursor-pointer">
           <Link href="/">
             <a>
