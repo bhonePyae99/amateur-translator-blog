@@ -74,6 +74,15 @@ const Navbar = () => {
               </li>
             </Link>
           )}
+
+          {!user && (
+            <Link href="/signUp" passHref>
+              <li className="cursor-pointer hover:border-b-2  border-b-transparent border-b-2">
+                Register
+              </li>
+            </Link>
+          )}
+
           {user && (
             <Link href="/profile">
               <a>
@@ -96,7 +105,7 @@ const Navbar = () => {
       <AnimatePresence>
         {showMobileMenu && (
           <motion.div
-            className="bg-green-600 w-full z-0 absolute bottom-0 translate-y-full"
+            className="bg-green-600 z-10 w-full z-0 absolute bottom-0 translate-y-full"
             variants={user ? mobileLogin : mobileNotLogin}
             initial="hidden"
             animate="visible"
@@ -131,6 +140,20 @@ const Navbar = () => {
                   </li>
                 </Link>
               )}
+
+              {!user && (
+                <Link href="/signUp" passHref>
+                  <li
+                    className="border-b p-2"
+                    onClick={() => {
+                      setShowMobileMenu(false);
+                    }}
+                  >
+                    Register
+                  </li>
+                </Link>
+              )}
+
               {user && (
                 <Link href="/addBook" passHref>
                   <li
@@ -144,14 +167,15 @@ const Navbar = () => {
                 </Link>
               )}
               {user && (
-                <Link
-                  href="/profile"
-                  passHref
-                  onClick={() => {
-                    setShowMobileMenu(false);
-                  }}
-                >
-                  <li className="border-b p-2">Profile</li>
+                <Link href="/profile" passHref>
+                  <li
+                    className="border-b p-2"
+                    onClick={() => {
+                      setShowMobileMenu(false);
+                    }}
+                  >
+                    Profile
+                  </li>
                 </Link>
               )}
             </ul>

@@ -11,6 +11,8 @@ const Profile = () => {
   const { user } = useContext(UserContext);
   const [userName, setUserName] = useState("Anonymous Author");
 
+  console.log(user);
+
   useEffect(() => {
     if (user) {
       setUserName(user.displayName);
@@ -45,10 +47,7 @@ const Profile = () => {
       </button>
       <div className="flex flex-col items-center md:items-start">
         <img
-          src={
-            (user && user.photoURL) ||
-            "https://i.pinimg.com/564x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg"
-          }
+          src={user && user.photoURL}
           className="w-[100px] h-[100px] rounded-full"
           alt=""
         />
