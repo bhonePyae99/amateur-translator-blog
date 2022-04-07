@@ -11,7 +11,11 @@ const Profile = () => {
   const { user } = useContext(UserContext);
   const [userName, setUserName] = useState("Anonymous Author");
 
-  console.log(user);
+  useEffect(() => {
+    if (user === null) {
+      window.location.pathname = "/login";
+    }
+  }, [user]);
 
   useEffect(() => {
     if (user) {

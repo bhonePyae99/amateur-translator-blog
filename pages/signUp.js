@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Joi from "joi-browser";
 
 import { auth, storage } from "../firebase-config";
 import Input from "../components/common/Input";
+import UserContext from "../context/UserContext";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useRouter } from "next/router";
 
@@ -12,6 +13,14 @@ const SignUp = () => {
   const [profilePic, setProfilePic] = useState("");
   const [preview, setPreview] = useState("");
   const router = useRouter();
+  const { user } = useContext(UserContext);
+
+  //redirect to profile page if already signIn
+  useEffect(() => {
+    if (user) {
+      router.replace("/profile");
+    }
+  }, [user]);
 
   //validate function
   const validateData = (data) => {

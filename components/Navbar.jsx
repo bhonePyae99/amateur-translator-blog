@@ -22,7 +22,7 @@ const mobileLogin = {
 const mobileNotLogin = {
   hidden: { y: -300, opacity: 0 },
   visible: {
-    y: 125,
+    y: 165,
     opacity: 1,
     transition: { ease: "easeOut", duration: 0.5 },
   },
@@ -105,7 +105,7 @@ const Navbar = () => {
       <AnimatePresence>
         {showMobileMenu && (
           <motion.div
-            className="bg-green-600 z-10 w-full z-0 absolute bottom-0 translate-y-full"
+            className="bg-green-600 z-10 w-full absolute bottom-0 translate-y-full"
             variants={user ? mobileLogin : mobileNotLogin}
             initial="hidden"
             animate="visible"

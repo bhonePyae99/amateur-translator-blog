@@ -1,11 +1,22 @@
 import Joi from "joi-browser";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { auth } from "../firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Input from "../components/common/Input";
+import UserContext from "../context/UserContext";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const [errors, setErrors] = useState({});
+  const { user } = useContext(UserContext);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.replace("/profile");
+    }
+  }, [user]);
 
   //validate function
   const validateData = (data) => {
